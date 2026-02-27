@@ -113,31 +113,48 @@
 <body>
 
     <div class="quest-card">
-        <h1>Active Quests</h1>
+        <h1>My Task</h1>
         <div class="input-group">
             <input type="text" id="taskInput" placeholder="Enter new quest...">
             <button class="btn-add" onclick="addTask()">Deploy</button>
         </div>
         <ul id="taskList"></ul>
     </div>
+<script>
+    const taskList = document.getElementById("taskList");
 
-    <script>
-        function addTask() {
-            const input = document.getElementById("taskInput");
-            if (input.value.trim() === "") return;
+      function addTask() {
+        const input = document.getElementById("taskInput");
+        const task = input.value.trim();
 
-            const li = document.createElement("li");
-            li.innerHTML = `<span>▶ ${input.value}</span> 
-                            <button class="btn-del" onclick="this.parentElement.remove()">X</button>`;
-            
-            document.getElementById("taskList").appendChild(li);
-            input.value = "";
+        if (task) {
+          const li = document.createElement("li");
+
+          li.className =
+            "list-group-item d-flex justify-content-between align-items-center mb-2 rounded shadow-sm border";
+
+          li.innerHTML = `
+                    <span>${task}</span>
+                    <button class="btn btn-outline-danger btn-sm" onclick="this.parentElement.remove()">X</button>
+                `;
+
+          taskList.appendChild(li);
+          input.value = "";
         }
+      }
 
-        // SW for Mobile Icon
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js');
-        }
-    </script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then(() => {
+            console.log("ayos! rehistro as service worker");
+          })
+          .catch((error) => {
+            console.log("Registration failed: ", error);
+          });
+      }
+      
+</script>
 </body>
+
 </html>
