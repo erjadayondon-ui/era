@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
+    <title>My Blue To-do List</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#00d4ff">
+    <meta name="theme-color" content="#007bff">
     <style>
         :root {
-            --bg: #0f0f12;
-            --surface: #1c1c21;
-            --accent: #00d4ff; /* Neon Blue */
-            --danger: #ff0055; /* Power Red */
-            --text: #e0e0e0;
+            --bg: #eef2f7;
+            --surface: #ffffff;
+            --accent: #007bff; 
+            --accent-soft: #e3f2fd;
+            --danger: #ff4757;
+            --text: #2d3436;
         }
 
         body {
             background-color: var(--bg);
+            
+            background: linear-gradient(135deg, #eef2f7 0%, #d1e3f8 100%);
             color: var(--text);
-            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -27,100 +30,119 @@
         }
 
         .quest-card {
-            background: var(--surface);
+            background: rgba(255, 255, 255, 0.9);
             width: 100%;
             max-width: 450px;
-            padding: 25px;
-            border-radius: 5px;
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-            position: relative;
-        }
-
-        /* Diagonal "manga" stripe effect */
-        .quest-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 5px;
-            background: linear-gradient(90deg, var(--accent), var(--danger));
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 123, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            align-self: flex-start;
+            margin-top: 50px;
         }
 
         h1 {
             text-align: center;
-            font-style: italic;
-            letter-spacing: 2px;
+            font-weight: 800;
             color: var(--accent);
-            margin-bottom: 30px;
-            text-transform: uppercase;
+            margin-top: 0;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
         }
 
         .input-group {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 25px;
+            background: #f8f9fa;
+            padding: 5px;
+            border-radius: 16px;
+            border: 1px solid #dee2e6;
         }
 
         input {
             flex: 1;
-            background: #2a2a32;
-            border: 1px solid var(--accent);
-            color: white;
-            padding: 12px;
-            border-radius: 0;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            padding: 12px 15px;
             outline: none;
+            font-size: 16px;
         }
 
         .btn-add {
             background: var(--accent);
-            color: black;
+            color: white;
             border: none;
             padding: 0 20px;
             cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
         }
 
         ul { list-style: none; padding: 0; }
 
         li {
-            background: #25252b;
-            margin-bottom: 12px;
-            padding: 15px;
+            background: #ffffff;
+            margin-bottom: 10px;
+            padding: 14px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-right: 4px solid var(--accent);
-            transition: 0.2s;
+            border-radius: 14px;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         li:hover {
-            transform: skewX(-2deg);
-            background: #2d2d35;
+            transform: scale(1.02);
+            background: var(--accent-soft);
         }
 
-        .btn-del {
+        
+        .btn-outline-danger {
+            background: #fff0f0;
+            color: var(--danger);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .btn-outline-danger:hover {
             background: var(--danger);
             color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
     <div class="quest-card">
-        <h1>My Task</h1>
+        <h1>My Tasks</h1>
         <div class="input-group">
-            <input type="text" id="taskInput" placeholder="Enter new quest...">
-            <button class="btn-add" onclick="addTask()">Deploy</button>
+            <input type="text" id="taskInput" placeholder="Add a new task...">
+            <button class="btn-add" onclick="addTask()">Add</button>
         </div>
         <ul id="taskList"></ul>
     </div>
+
 <script>
+    
     const taskList = document.getElementById("taskList");
 
       function addTask() {
@@ -153,9 +175,6 @@
             console.log("Registration failed: ", error);
           });
       }
-      
 </script>
 </body>
-
 </html>
-
